@@ -1,0 +1,37 @@
+<mat-nav-list *ngIf="countries.length; else emptyState">
+  <a
+    mat-list-item
+    *ngFor="let country of countries"
+    (click)="onSelect(country.code)"
+  >
+    <div matListItemIcon>
+      <img
+        *ngIf="!compact"
+        [src]="country.flagSvg"
+        alt="{{ country.name }} flag"
+        class="flag"
+      />
+      <mat-icon *ngIf="compact">flag</mat-icon>
+    </div>
+
+    <div matListItemTitle>
+      {{ country.name }}
+    </div>
+    <div matListItemLine *ngIf="!compact">
+      {{ country.region }} • {{ country.capital }}
+    </div>
+
+    <button
+      mat-icon-button
+      matListItemMeta
+      (click)="onToggleFavorite(country.code); $event.stopPropagation()"
+      aria-label="Toggle favorite"
+    >
+      <mat-icon>star_border</mat-icon>
+    </button>
+  </a>
+</mat-nav-list>
+
+<ng-template #emptyState>
+  <p>No countries to show.</p>
+</ng-template>

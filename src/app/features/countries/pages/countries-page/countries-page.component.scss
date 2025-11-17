@@ -1,0 +1,51 @@
+.page-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .search-field {
+    width: 280px;
+    max-width: 100%;
+  }
+}
+
+.page-container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.sidebar,
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar {
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0 1rem 1rem;
+  border-radius: 8px;
+  background: #ffebee;
+  color: #b71c1c;
+}
