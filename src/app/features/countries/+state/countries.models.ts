@@ -1,3 +1,10 @@
+// 👇 NUEVO: simulación de evento "en vivo"
+export interface CountryEvent {
+  code: string;
+  message: string;
+  timestamp: string;
+}
+
 export interface Country {
   code: string;
   name: string;
@@ -13,5 +20,6 @@ export interface CountriesState {
   error: string | null;
   searchTerm: string;
   selectedCode: string | null;
-  favorites: string[]; // codes
+  favorites: string[];
+  liveEvents: CountryEvent[];  // 👈 NUEVO
 }

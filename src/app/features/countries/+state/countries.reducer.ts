@@ -9,6 +9,7 @@ export const initialState: CountriesState = {
   searchTerm: '',
   selectedCode: null,
   favorites: [],
+  liveEvents: [],   // 👈 NUEVO
 };
 
 export const countriesReducer = createReducer(
@@ -70,5 +71,11 @@ export const countriesReducer = createReducer(
   on(CountriesActions.clearError, (state): CountriesState => ({
     ...state,
     error: null,
+  })),
+
+   // 👇 NUEVO: cada evento en vivo se agrega al inicio de la lista
+  on(CountriesActions.liveUpdateReceived, (state, { event }): CountriesState => ({
+    ...state,
+    liveEvents: [event, ...state.liveEvents].slice(0, 50), // guarda solo los últimos 50
   }))
 );

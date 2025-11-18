@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.state';
 import { CountriesActions } from '../../+state/countries.actions';
@@ -8,6 +8,7 @@ import {
   selectError,
   selectFavoriteCountries,
   selectLoading,
+  selectLiveEvents
 } from '../../+state/countries.selectors';
 
 import { CountryListComponent } from '../../components/country-list/country-list.component';
@@ -27,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrls: ['./countries-page.component.scss'],
   imports: [
     NgIf,
+    NgFor,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
@@ -47,12 +49,18 @@ export class CountriesPageComponent {
   loading = this.store.selectSignal(selectLoading);
   error = this.store.selectSignal(selectError);
   favoriteCountries = this.store.selectSignal(selectFavoriteCountries);
+  liveEvents = this.store.selectSignal(selectLiveEvents); // 👈 NUEVO
 
   // Signal local para el texto de búsqueda
   searchTerm = signal('');
 
   constructor() {
     this.store.dispatch(CountriesActions.loadAll());
+    this.store.dispatch(CountriesActions.connectLiveUpdates()); // 👈 Inicia la "conexión"
+  }
+
+    ngOnDestroy(): void {
+    this.store.dispatch(CountriesActions.disconnectLiveUpdates()); // 👈 la cerramos por buenas prácticas
   }
 
   onSearchChange(term: string): void {

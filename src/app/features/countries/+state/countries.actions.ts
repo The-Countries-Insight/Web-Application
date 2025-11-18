@@ -1,5 +1,5 @@
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
-import { Country } from './countries.models';
+import { Country, CountryEvent } from './countries.models'; // 👈 agrega CountryEvent
 
 export const CountriesActions = createActionGroup({
   source: 'Countries',
@@ -15,7 +15,11 @@ export const CountriesActions = createActionGroup({
     'Select Country': props<{ code: string | null }>(),
 
     'Toggle Favorite': props<{ code: string }>(),
-
     'Clear Error': emptyProps(),
+
+    // 👇 NUEVO: simulación "WebSocket"
+    'Connect Live Updates': emptyProps(),
+    'Disconnect Live Updates': emptyProps(),
+    'Live Update Received': props<{ event: CountryEvent }>(),
   },
 });

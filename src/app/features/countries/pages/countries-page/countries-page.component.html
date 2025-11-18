@@ -57,3 +57,13 @@
   <mat-icon>error</mat-icon>
   <span>{{ errorMsg }}</span>
 </div>
+
+<section class="live-events" *ngIf="liveEvents()?.length">
+  <h2>Live Events (simulados)</h2>
+  <ul>
+    <li *ngFor="let ev of liveEvents()">
+      <strong>{{ ev.code }}</strong> - {{ ev.message }}
+      <small> ({{ ev.timestamp }})</small>
+    </li>
+  </ul>
+</section>

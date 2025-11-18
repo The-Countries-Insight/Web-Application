@@ -47,3 +47,8 @@ export const selectFavoriteCountries = createSelector(
   (countries, favoriteCodes): Country[] =>
     countries.filter((c) => favoriteCodes.includes(c.code))
 );
+
+export const selectLiveEvents = createSelector(
+  selectCountriesState,
+  (state: CountriesState) => state.liveEvents
+);
