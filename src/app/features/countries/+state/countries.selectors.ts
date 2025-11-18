@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { CountriesState, Country } from './countries.models';
+import { CountriesState, Country } from '../+state/countries.models';
 
 export const selectCountriesState =
   createFeatureSelector<CountriesState>('countries');

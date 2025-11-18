@@ -1,4 +1,4 @@
-<ng-container *ngIf="country$ | async as country; else noSelection">
+<ng-container *ngIf="country() as country; else noSelection">
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="flag-avatar">

@@ -21,12 +21,12 @@
   </mat-form-field>
 </mat-toolbar>
 
-<div class="page-container" *ngIf="!(loading$ | async); else loadingTpl">
+<div class="page-container" *ngIf="!loading(); else loadingTpl">
   <section class="sidebar">
     <h2>Countries</h2>
 
     <app-country-list
-      [countries]="(countries$ | async) ?? []"
+      [countries]="countries() ?? []"
       (selectCountry)="onSelectCountry($event)"
       (toggleFavorite)="onToggleFavorite($event)"
     ></app-country-list>
@@ -35,11 +35,11 @@
   <section class="main">
     <app-country-detail></app-country-detail>
 
-    <section class="favorites" *ngIf="(favoriteCountries$ | async)?.length">
+    <section class="favorites" *ngIf="favoriteCountries()?.length">
       <h2>Favorites</h2>
       <app-country-list
         [compact]="true"
-        [countries]="(favoriteCountries$ | async) ?? []"
+        [countries]="favoriteCountries() ?? []"
         (selectCountry)="onSelectCountry($event)"
         (toggleFavorite)="onToggleFavorite($event)"
       ></app-country-list>
@@ -53,7 +53,7 @@
   </div>
 </ng-template>
 
-<div class="error-container" *ngIf="(error$ | async) as error">
+<div class="error-container" *ngIf="error() as errorMsg">
   <mat-icon>error</mat-icon>
-  <span>{{ error }}</span>
+  <span>{{ errorMsg }}</span>
 </div>

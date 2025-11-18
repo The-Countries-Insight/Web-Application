@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.state';
 import { CountriesActions } from '../../+state/countries.actions';
@@ -27,14 +27,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrls: ['./countries-page.component.scss'],
   imports: [
     NgIf,
-    AsyncPipe,
-    // Material
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    // Feature components
     CountryListComponent,
     CountryDetailComponent,
   ],
@@ -42,11 +39,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class CountriesPageComponent {
   private store = inject(Store<AppState>);
 
-  countries$ = this.store.select(selectAllCountries);
-  loading$ = this.store.select(selectLoading);
-  error$ = this.store.select(selectError);
-  favoriteCountries$ = this.store.select(selectFavoriteCountries);
+  // 🔁 Antes: Observables con select(...)
+  // countries$ = this.store.select(selectAllCountries);
 
+  // ✅ Ahora: Signals con selectSignal(...)
+  countries = this.store.selectSignal(selectAllCountries);
+  loading = this.store.selectSignal(selectLoading);
+  error = this.store.selectSignal(selectError);
+  favoriteCountries = this.store.selectSignal(selectFavoriteCountries);
+
+  // Signal local para el texto de búsqueda
   searchTerm = signal('');
 
   constructor() {
